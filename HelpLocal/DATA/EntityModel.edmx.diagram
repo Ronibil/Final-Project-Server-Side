@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0a5edc94fa234e3d94b9adccb033b120" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblAdmin" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblCity" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblClass" Width="1.5" PointX="10.5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblDepartment" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblRegisteredTo" Width="1.5" PointX="5.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblRequestToJoin" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblRequestToJoinSuperStudent" Width="1.875" PointX="5.125" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblStudent" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblSuperStudent" Width="1.5" PointX="8.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblTags" Width="1.5" PointX="12.75" PointY="8.875" IsExpanded="true" />
+        <AssociationConnector Association="HelpMeStudentModel.FK__tblRequest__City__1273C1CD" ManuallyRouted="false" />
+        <AssociationConnector Association="HelpMeStudentModel.FK__tblStudent__City__1CF15040" ManuallyRouted="false" />
+        <AssociationConnector Association="HelpMeStudentModel.FK__tblClass__SuperS__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="HelpMeStudentModel.FK__tblRegist__Class__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="HelpMeStudentModel.FK__tblReques__Depar__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="HelpMeStudentModel.FK__tblSuperS__Depar__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="HelpMeStudentModel.FK__tblRegist__Stude__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="HelpMeStudentModel.FK__tblReques__Requs__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="HelpMeStudentModel.FK__tblSuperS__Stude__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="HelpMeStudentModel.tblClassTags" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.sysdiagrams" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblTagsRequests" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HelpMeStudentModel.tblTips" Width="1.5" PointX="9.375" PointY="4.75" />
+        <AssociationConnector Association="HelpMeStudentModel.tblTagsNotifications" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

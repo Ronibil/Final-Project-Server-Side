@@ -1,0 +1,967 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HelpMeStudentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblAdmin">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblCity">
+          <Key>
+            <PropertyRef Name="CityName" />
+          </Key>
+          <Property Name="CityName" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblClass">
+          <Key>
+            <PropertyRef Name="ClassCode" />
+          </Key>
+          <Property Name="ClassCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassDate" Type="date" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="EndTime" Type="time" Precision="7" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SuperStudentId" Type="char" MaxLength="9" />
+          <Property Name="NumOfParticipants" Type="smallint" />
+          <Property Name="ClassDescription" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblClassTags">
+          <Key>
+            <PropertyRef Name="ClassCode" />
+            <PropertyRef Name="TagName" />
+          </Key>
+          <Property Name="ClassCode" Type="int" Nullable="false" />
+          <Property Name="TagName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="DepartmentName" />
+          </Key>
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRegisteredTo">
+          <Key>
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="ClassCode" />
+          </Key>
+          <Property Name="StudentId" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="ClassCode" Type="int" Nullable="false" />
+          <Property Name="RegistrationDate" Type="date" />
+          <Property Name="StudentRank" Type="smallint" />
+          <Property Name="RankDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDone" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblRequestToJoin">
+          <Key>
+            <PropertyRef Name="RequsetNum" />
+          </Key>
+          <Property Name="RequsetNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="char" MaxLength="9" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="RequestDate" Type="date" />
+          <Property Name="RequestStatus" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblRequestToJoinSuperStudent">
+          <Key>
+            <PropertyRef Name="RequsetNum" />
+          </Key>
+          <Property Name="RequsetNum" Type="int" Nullable="false" />
+          <Property Name="Image" Type="image" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StudyYear" Type="char" MaxLength="1" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblStudent">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Password" Type="nvarchar" MaxLength="10" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="RegistrationDate" Type="date" />
+        </EntityType>
+        <EntityType Name="tblSuperStudent">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="Image" Type="varbinary" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StudyYear" Type="char" MaxLength="1" />
+          <Property Name="NumOfRanks" Type="int" />
+          <Property Name="RankAverage" Type="smallint" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="255" />
+          <Property Name="CumulativeRank" Type="int" />
+        </EntityType>
+        <EntityType Name="tblTags">
+          <Key>
+            <PropertyRef Name="TagName" />
+          </Key>
+          <Property Name="TagName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumOfMissingSearches" Type="int" />
+        </EntityType>
+        <EntityType Name="tblTagsNotifications">
+          <Key>
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="TagName" />
+          </Key>
+          <Property Name="StudentId" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="TagName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblTagsRequests">
+          <Key>
+            <PropertyRef Name="TagRequestNum" />
+          </Key>
+          <Property Name="TagRequestNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TagName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RequestStatus" Type="nvarchar" MaxLength="20" />
+          <Property Name="StudentId" Type="char" MaxLength="9" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="30" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RequestDate" Type="date" />
+        </EntityType>
+        <EntityType Name="tblTips">
+          <Key>
+            <PropertyRef Name="TipId" />
+          </Key>
+          <Property Name="TipId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipContent" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblClass__SuperS__25869641">
+          <End Role="tblSuperStudent" Type="Self.tblSuperStudent" Multiplicity="0..1" />
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSuperStudent">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="tblClass">
+              <PropertyRef Name="SuperStudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClassT__Class__267ABA7A">
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="1" />
+          <End Role="tblClassTags" Type="Self.tblClassTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClass">
+              <PropertyRef Name="ClassCode" />
+            </Principal>
+            <Dependent Role="tblClassTags">
+              <PropertyRef Name="ClassCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClassT__TagNa__276EDEB3">
+          <End Role="tblTags" Type="Self.tblTags" Multiplicity="1" />
+          <End Role="tblClassTags" Type="Self.tblClassTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTags">
+              <PropertyRef Name="TagName" />
+            </Principal>
+            <Dependent Role="tblClassTags">
+              <PropertyRef Name="TagName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRegist__Class__286302EC">
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="1" />
+          <End Role="tblRegisteredTo" Type="Self.tblRegisteredTo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClass">
+              <PropertyRef Name="ClassCode" />
+            </Principal>
+            <Dependent Role="tblRegisteredTo">
+              <PropertyRef Name="ClassCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRegist__Stude__29572725">
+          <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="1" />
+          <End Role="tblRegisteredTo" Type="Self.tblRegisteredTo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStudent">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="tblRegisteredTo">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReques__Depar__2B3F6F97">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblRequestToJoinSuperStudent" Type="Self.tblRequestToJoinSuperStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="DepartmentName" />
+            </Principal>
+            <Dependent Role="tblRequestToJoinSuperStudent">
+              <PropertyRef Name="DepartmentName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReques__Requs__2C3393D0">
+          <End Role="tblRequestToJoin" Type="Self.tblRequestToJoin" Multiplicity="1" />
+          <End Role="tblRequestToJoinSuperStudent" Type="Self.tblRequestToJoinSuperStudent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblRequestToJoin">
+              <PropertyRef Name="RequsetNum" />
+            </Principal>
+            <Dependent Role="tblRequestToJoinSuperStudent">
+              <PropertyRef Name="RequsetNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRequest__City__2A4B4B5E">
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
+          <End Role="tblRequestToJoin" Type="Self.tblRequestToJoin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="CityName" />
+            </Principal>
+            <Dependent Role="tblRequestToJoin">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStudent__City__2D27B809">
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
+          <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="CityName" />
+            </Principal>
+            <Dependent Role="tblStudent">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSuperS__Depar__2E1BDC42">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblSuperStudent" Type="Self.tblSuperStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="DepartmentName" />
+            </Principal>
+            <Dependent Role="tblSuperStudent">
+              <PropertyRef Name="DepartmentName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSuperS__Stude__2F10007B">
+          <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="1" />
+          <End Role="tblSuperStudent" Type="Self.tblSuperStudent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblStudent">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="tblSuperStudent">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTagsNo__Stude__5165187F">
+          <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblTagsNotifications" Type="Self.tblTagsNotifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStudent">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="tblTagsNotifications">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTagsNo__TagNa__52593CB8">
+          <End Role="tblTags" Type="Self.tblTags" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblTagsNotifications" Type="Self.tblTagsNotifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTags">
+              <PropertyRef Name="TagName" />
+            </Principal>
+            <Dependent Role="tblTagsNotifications">
+              <PropertyRef Name="TagName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_OnDeleteCascadeSuperStudent">
+          <End Role="tblSuperStudent" Type="Self.tblSuperStudent" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSuperStudent">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="tblClass">
+              <PropertyRef Name="SuperStudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OnDeleteCascadeConstraint">
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblClassTags" Type="Self.tblClassTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClass">
+              <PropertyRef Name="ClassCode" />
+            </Principal>
+            <Dependent Role="tblClassTags">
+              <PropertyRef Name="ClassCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OnDeleteCascadeTag">
+          <End Role="tblTags" Type="Self.tblTags" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblClassTags" Type="Self.tblClassTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTags">
+              <PropertyRef Name="TagName" />
+            </Principal>
+            <Dependent Role="tblClassTags">
+              <PropertyRef Name="TagName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HelpMeStudentModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAdmin" EntityType="Self.tblAdmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCity" EntityType="Self.tblCity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblClass" EntityType="Self.tblClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblClassTags" EntityType="Self.tblClassTags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRegisteredTo" EntityType="Self.tblRegisteredTo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRequestToJoin" EntityType="Self.tblRequestToJoin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRequestToJoinSuperStudent" EntityType="Self.tblRequestToJoinSuperStudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStudent" EntityType="Self.tblStudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSuperStudent" EntityType="Self.tblSuperStudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTags" EntityType="Self.tblTags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTagsNotifications" EntityType="Self.tblTagsNotifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTagsRequests" EntityType="Self.tblTagsRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTips" EntityType="Self.tblTips" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblClass__SuperS__25869641" Association="Self.FK__tblClass__SuperS__25869641">
+            <End Role="tblSuperStudent" EntitySet="tblSuperStudent" />
+            <End Role="tblClass" EntitySet="tblClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClassT__Class__267ABA7A" Association="Self.FK__tblClassT__Class__267ABA7A">
+            <End Role="tblClass" EntitySet="tblClass" />
+            <End Role="tblClassTags" EntitySet="tblClassTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClassT__TagNa__276EDEB3" Association="Self.FK__tblClassT__TagNa__276EDEB3">
+            <End Role="tblTags" EntitySet="tblTags" />
+            <End Role="tblClassTags" EntitySet="tblClassTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRegist__Class__286302EC" Association="Self.FK__tblRegist__Class__286302EC">
+            <End Role="tblClass" EntitySet="tblClass" />
+            <End Role="tblRegisteredTo" EntitySet="tblRegisteredTo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRegist__Stude__29572725" Association="Self.FK__tblRegist__Stude__29572725">
+            <End Role="tblStudent" EntitySet="tblStudent" />
+            <End Role="tblRegisteredTo" EntitySet="tblRegisteredTo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReques__Depar__2B3F6F97" Association="Self.FK__tblReques__Depar__2B3F6F97">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblRequestToJoinSuperStudent" EntitySet="tblRequestToJoinSuperStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReques__Requs__2C3393D0" Association="Self.FK__tblReques__Requs__2C3393D0">
+            <End Role="tblRequestToJoin" EntitySet="tblRequestToJoin" />
+            <End Role="tblRequestToJoinSuperStudent" EntitySet="tblRequestToJoinSuperStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRequest__City__2A4B4B5E" Association="Self.FK__tblRequest__City__2A4B4B5E">
+            <End Role="tblCity" EntitySet="tblCity" />
+            <End Role="tblRequestToJoin" EntitySet="tblRequestToJoin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStudent__City__2D27B809" Association="Self.FK__tblStudent__City__2D27B809">
+            <End Role="tblCity" EntitySet="tblCity" />
+            <End Role="tblStudent" EntitySet="tblStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSuperS__Depar__2E1BDC42" Association="Self.FK__tblSuperS__Depar__2E1BDC42">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblSuperStudent" EntitySet="tblSuperStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSuperS__Stude__2F10007B" Association="Self.FK__tblSuperS__Stude__2F10007B">
+            <End Role="tblStudent" EntitySet="tblStudent" />
+            <End Role="tblSuperStudent" EntitySet="tblSuperStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTagsNo__Stude__5165187F" Association="Self.FK__tblTagsNo__Stude__5165187F">
+            <End Role="tblStudent" EntitySet="tblStudent" />
+            <End Role="tblTagsNotifications" EntitySet="tblTagsNotifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTagsNo__TagNa__52593CB8" Association="Self.FK__tblTagsNo__TagNa__52593CB8">
+            <End Role="tblTags" EntitySet="tblTags" />
+            <End Role="tblTagsNotifications" EntitySet="tblTagsNotifications" />
+          </AssociationSet>
+          <AssociationSet Name="fk_OnDeleteCascadeSuperStudent" Association="Self.fk_OnDeleteCascadeSuperStudent">
+            <End Role="tblSuperStudent" EntitySet="tblSuperStudent" />
+            <End Role="tblClass" EntitySet="tblClass" />
+          </AssociationSet>
+          <AssociationSet Name="OnDeleteCascadeConstraint" Association="Self.OnDeleteCascadeConstraint">
+            <End Role="tblClass" EntitySet="tblClass" />
+            <End Role="tblClassTags" EntitySet="tblClassTags" />
+          </AssociationSet>
+          <AssociationSet Name="OnDeleteCascadeTag" Association="Self.OnDeleteCascadeTag">
+            <End Role="tblTags" EntitySet="tblTags" />
+            <End Role="tblClassTags" EntitySet="tblClassTags" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HelpMeStudentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblAdmin">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblCity">
+          <Key>
+            <PropertyRef Name="CityName" />
+          </Key>
+          <Property Name="CityName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblRequestToJoin" Relationship="Self.FK__tblRequest__City__1273C1CD" FromRole="tblCity" ToRole="tblRequestToJoin" />
+          <NavigationProperty Name="tblStudent" Relationship="Self.FK__tblStudent__City__1CF15040" FromRole="tblCity" ToRole="tblStudent" />
+        </EntityType>
+        <EntityType Name="tblClass">
+          <Key>
+            <PropertyRef Name="ClassCode" />
+          </Key>
+          <Property Name="ClassCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassDate" Type="DateTime" Precision="0" />
+          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SuperStudentId" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="NumOfParticipants" Type="Int16" />
+          <Property Name="ClassDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblSuperStudent" Relationship="Self.FK__tblClass__SuperS__239E4DCF" FromRole="tblClass" ToRole="tblSuperStudent" />
+          <NavigationProperty Name="tblRegisteredTo" Relationship="Self.FK__tblRegist__Class__276EDEB3" FromRole="tblClass" ToRole="tblRegisteredTo" />
+          <NavigationProperty Name="tblTags" Relationship="Self.tblClassTags" FromRole="tblClass" ToRole="tblTags" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="DepartmentName" />
+          </Key>
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblRequestToJoinSuperStudent" Relationship="Self.FK__tblReques__Depar__182C9B23" FromRole="tblDepartment" ToRole="tblRequestToJoinSuperStudent" />
+          <NavigationProperty Name="tblSuperStudent" Relationship="Self.FK__tblSuperS__Depar__20C1E124" FromRole="tblDepartment" ToRole="tblSuperStudent" />
+        </EntityType>
+        <EntityType Name="tblRegisteredTo">
+          <Key>
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="ClassCode" />
+          </Key>
+          <Property Name="StudentId" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ClassCode" Type="Int32" Nullable="false" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="0" />
+          <Property Name="StudentRank" Type="Int16" />
+          <Property Name="RankDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDone" Type="Boolean" />
+          <NavigationProperty Name="tblClass" Relationship="Self.FK__tblRegist__Class__276EDEB3" FromRole="tblRegisteredTo" ToRole="tblClass" />
+          <NavigationProperty Name="tblStudent" Relationship="Self.FK__tblRegist__Stude__267ABA7A" FromRole="tblRegisteredTo" ToRole="tblStudent" />
+        </EntityType>
+        <EntityType Name="tblRequestToJoin">
+          <Key>
+            <PropertyRef Name="RequsetNum" />
+          </Key>
+          <Property Name="RequsetNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="FullName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="RequestDate" Type="DateTime" Precision="0" />
+          <Property Name="RequestStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCity" Relationship="Self.FK__tblRequest__City__1273C1CD" FromRole="tblRequestToJoin" ToRole="tblCity" />
+          <NavigationProperty Name="tblRequestToJoinSuperStudent" Relationship="Self.FK__tblReques__Requs__173876EA" FromRole="tblRequestToJoin" ToRole="tblRequestToJoinSuperStudent" />
+        </EntityType>
+        <EntityType Name="tblRequestToJoinSuperStudent">
+          <Key>
+            <PropertyRef Name="RequsetNum" />
+          </Key>
+          <Property Name="RequsetNum" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyYear" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="tblDepartment" Relationship="Self.FK__tblReques__Depar__182C9B23" FromRole="tblRequestToJoinSuperStudent" ToRole="tblDepartment" />
+          <NavigationProperty Name="tblRequestToJoin" Relationship="Self.FK__tblReques__Requs__173876EA" FromRole="tblRequestToJoinSuperStudent" ToRole="tblRequestToJoin" />
+          <Property Name="ImagePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblStudent">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tblCity" Relationship="Self.FK__tblStudent__City__1CF15040" FromRole="tblStudent" ToRole="tblCity" />
+          <NavigationProperty Name="tblRegisteredTo" Relationship="Self.FK__tblRegist__Stude__267ABA7A" FromRole="tblStudent" ToRole="tblRegisteredTo" />
+          <NavigationProperty Name="tblSuperStudent" Relationship="Self.FK__tblSuperS__Stude__1FCDBCEB" FromRole="tblStudent" ToRole="tblSuperStudent" />
+          <NavigationProperty Name="tblTags" Relationship="HelpMeStudentModel.tblTagsNotifications" FromRole="tblStudent" ToRole="tblTags" />
+        </EntityType>
+        <EntityType Name="tblSuperStudent">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="500" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudyYear" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="NumOfRanks" Type="Int32" />
+          <Property Name="RankAverage" Type="Int16" />
+          <NavigationProperty Name="tblClass" Relationship="Self.FK__tblClass__SuperS__239E4DCF" FromRole="tblSuperStudent" ToRole="tblClass" />
+          <NavigationProperty Name="tblDepartment" Relationship="Self.FK__tblSuperS__Depar__20C1E124" FromRole="tblSuperStudent" ToRole="tblDepartment" />
+          <NavigationProperty Name="tblStudent" Relationship="Self.FK__tblSuperS__Stude__1FCDBCEB" FromRole="tblSuperStudent" ToRole="tblStudent" />
+          <Property Name="ImagePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CumulativeRank" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblTags">
+          <Key>
+            <PropertyRef Name="TagName" />
+          </Key>
+          <Property Name="TagName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblClass" Relationship="Self.tblClassTags" FromRole="tblTags" ToRole="tblClass" />
+          <Property Name="NumOfMissingSearches" Type="Int32" />
+          <NavigationProperty Name="tblStudent" Relationship="HelpMeStudentModel.tblTagsNotifications" FromRole="tblTags" ToRole="tblStudent" />
+        </EntityType>
+        <Association Name="FK__tblRequest__City__1273C1CD">
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
+          <End Role="tblRequestToJoin" Type="Self.tblRequestToJoin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="CityName" />
+            </Principal>
+            <Dependent Role="tblRequestToJoin">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStudent__City__1CF15040">
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
+          <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="CityName" />
+            </Principal>
+            <Dependent Role="tblStudent">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClass__SuperS__239E4DCF">
+          <End Role="tblSuperStudent" Type="Self.tblSuperStudent" Multiplicity="0..1" />
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSuperStudent">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="tblClass">
+              <PropertyRef Name="SuperStudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRegist__Class__276EDEB3">
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="1" />
+          <End Role="tblRegisteredTo" Type="Self.tblRegisteredTo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClass">
+              <PropertyRef Name="ClassCode" />
+            </Principal>
+            <Dependent Role="tblRegisteredTo">
+              <PropertyRef Name="ClassCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReques__Depar__182C9B23">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblRequestToJoinSuperStudent" Type="Self.tblRequestToJoinSuperStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="DepartmentName" />
+            </Principal>
+            <Dependent Role="tblRequestToJoinSuperStudent">
+              <PropertyRef Name="DepartmentName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSuperS__Depar__20C1E124">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblSuperStudent" Type="Self.tblSuperStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="DepartmentName" />
+            </Principal>
+            <Dependent Role="tblSuperStudent">
+              <PropertyRef Name="DepartmentName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRegist__Stude__267ABA7A">
+          <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="1" />
+          <End Role="tblRegisteredTo" Type="Self.tblRegisteredTo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStudent">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="tblRegisteredTo">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReques__Requs__173876EA">
+          <End Role="tblRequestToJoin" Type="Self.tblRequestToJoin" Multiplicity="1" />
+          <End Role="tblRequestToJoinSuperStudent" Type="Self.tblRequestToJoinSuperStudent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblRequestToJoin">
+              <PropertyRef Name="RequsetNum" />
+            </Principal>
+            <Dependent Role="tblRequestToJoinSuperStudent">
+              <PropertyRef Name="RequsetNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSuperS__Stude__1FCDBCEB">
+          <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="1" />
+          <End Role="tblSuperStudent" Type="Self.tblSuperStudent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblStudent">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="tblSuperStudent">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tblClassTags">
+          <End Role="tblClass" Type="Self.tblClass" Multiplicity="*" />
+          <End Role="tblTags" Type="Self.tblTags" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="AppDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAdmin" EntityType="Self.tblAdmin" />
+          <EntitySet Name="tblCity" EntityType="Self.tblCity" />
+          <EntitySet Name="tblClass" EntityType="Self.tblClass" />
+          <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" />
+          <EntitySet Name="tblRegisteredTo" EntityType="Self.tblRegisteredTo" />
+          <EntitySet Name="tblRequestToJoin" EntityType="Self.tblRequestToJoin" />
+          <EntitySet Name="tblRequestToJoinSuperStudent" EntityType="Self.tblRequestToJoinSuperStudent" />
+          <EntitySet Name="tblStudent" EntityType="Self.tblStudent" />
+          <EntitySet Name="tblSuperStudent" EntityType="Self.tblSuperStudent" />
+          <EntitySet Name="tblTags" EntityType="Self.tblTags" />
+          <AssociationSet Name="FK__tblRequest__City__1273C1CD" Association="Self.FK__tblRequest__City__1273C1CD">
+            <End Role="tblCity" EntitySet="tblCity" />
+            <End Role="tblRequestToJoin" EntitySet="tblRequestToJoin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStudent__City__1CF15040" Association="Self.FK__tblStudent__City__1CF15040">
+            <End Role="tblCity" EntitySet="tblCity" />
+            <End Role="tblStudent" EntitySet="tblStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClass__SuperS__239E4DCF" Association="Self.FK__tblClass__SuperS__239E4DCF">
+            <End Role="tblSuperStudent" EntitySet="tblSuperStudent" />
+            <End Role="tblClass" EntitySet="tblClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRegist__Class__276EDEB3" Association="Self.FK__tblRegist__Class__276EDEB3">
+            <End Role="tblClass" EntitySet="tblClass" />
+            <End Role="tblRegisteredTo" EntitySet="tblRegisteredTo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReques__Depar__182C9B23" Association="Self.FK__tblReques__Depar__182C9B23">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblRequestToJoinSuperStudent" EntitySet="tblRequestToJoinSuperStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSuperS__Depar__20C1E124" Association="Self.FK__tblSuperS__Depar__20C1E124">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblSuperStudent" EntitySet="tblSuperStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRegist__Stude__267ABA7A" Association="Self.FK__tblRegist__Stude__267ABA7A">
+            <End Role="tblStudent" EntitySet="tblStudent" />
+            <End Role="tblRegisteredTo" EntitySet="tblRegisteredTo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReques__Requs__173876EA" Association="Self.FK__tblReques__Requs__173876EA">
+            <End Role="tblRequestToJoin" EntitySet="tblRequestToJoin" />
+            <End Role="tblRequestToJoinSuperStudent" EntitySet="tblRequestToJoinSuperStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSuperS__Stude__1FCDBCEB" Association="Self.FK__tblSuperS__Stude__1FCDBCEB">
+            <End Role="tblStudent" EntitySet="tblStudent" />
+            <End Role="tblSuperStudent" EntitySet="tblSuperStudent" />
+          </AssociationSet>
+          <AssociationSet Name="tblClassTags" Association="Self.tblClassTags">
+            <End Role="tblClass" EntitySet="tblClass" />
+            <End Role="tblTags" EntitySet="tblTags" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="HelpMeStudentModel.sysdiagrams" />
+          <EntitySet Name="tblTagsRequests" EntityType="HelpMeStudentModel.tblTagsRequests" />
+          <EntitySet Name="tblTips" EntityType="HelpMeStudentModel.tblTips" />
+          <AssociationSet Name="tblTagsNotifications" Association="HelpMeStudentModel.tblTagsNotifications">
+            <End Role="tblStudent" EntitySet="tblStudent" />
+            <End Role="tblTags" EntitySet="tblTags" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblTagsRequests">
+          <Key>
+            <PropertyRef Name="TagRequestNum" />
+          </Key>
+          <Property Name="TagRequestNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TagName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="StudentId" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="StudentName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="tblTips">
+          <Key>
+            <PropertyRef Name="TipId" />
+          </Key>
+          <Property Name="TipId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipContent" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="tblTagsNotifications">
+          <End Type="HelpMeStudentModel.tblStudent" Role="tblStudent" Multiplicity="*" />
+          <End Type="HelpMeStudentModel.tblTags" Role="tblTags" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HelpMeStudentModelStoreContainer" CdmEntityContainer="AppDbContext">
+          <EntitySetMapping Name="tblAdmin">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblAdmin">
+              <MappingFragment StoreEntitySet="tblAdmin">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCity">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblCity">
+              <MappingFragment StoreEntitySet="tblCity">
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblClass">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblClass">
+              <MappingFragment StoreEntitySet="tblClass">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="ClassDate" ColumnName="ClassDate" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="SuperStudentId" ColumnName="SuperStudentId" />
+                <ScalarProperty Name="NumOfParticipants" ColumnName="NumOfParticipants" />
+                <ScalarProperty Name="ClassDescription" ColumnName="ClassDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDepartment">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblDepartment">
+              <MappingFragment StoreEntitySet="tblDepartment">
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRegisteredTo">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblRegisteredTo">
+              <MappingFragment StoreEntitySet="tblRegisteredTo">
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="StudentRank" ColumnName="StudentRank" />
+                <ScalarProperty Name="RankDescription" ColumnName="RankDescription" />
+                <ScalarProperty Name="IsDone" ColumnName="IsDone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRequestToJoin">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblRequestToJoin">
+              <MappingFragment StoreEntitySet="tblRequestToJoin">
+                <ScalarProperty Name="RequsetNum" ColumnName="RequsetNum" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRequestToJoinSuperStudent">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblRequestToJoinSuperStudent">
+              <MappingFragment StoreEntitySet="tblRequestToJoinSuperStudent">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="RequsetNum" ColumnName="RequsetNum" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="StudyYear" ColumnName="StudyYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStudent">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblStudent">
+              <MappingFragment StoreEntitySet="tblStudent">
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSuperStudent">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblSuperStudent">
+              <MappingFragment StoreEntitySet="tblSuperStudent">
+                <ScalarProperty Name="CumulativeRank" ColumnName="CumulativeRank" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="StudyYear" ColumnName="StudyYear" />
+                <ScalarProperty Name="NumOfRanks" ColumnName="NumOfRanks" />
+                <ScalarProperty Name="RankAverage" ColumnName="RankAverage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTags">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblTags">
+              <MappingFragment StoreEntitySet="tblTags">
+                <ScalarProperty Name="NumOfMissingSearches" ColumnName="NumOfMissingSearches" />
+                <ScalarProperty Name="TagName" ColumnName="TagName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tblClassTags" TypeName="HelpMeStudentModel.tblClassTags" StoreEntitySet="tblClassTags">
+            <EndProperty Name="tblClass">
+              <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+            </EndProperty>
+            <EndProperty Name="tblTags">
+              <ScalarProperty Name="TagName" ColumnName="TagName" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTagsRequests">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblTagsRequests">
+              <MappingFragment StoreEntitySet="tblTagsRequests">
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+                <ScalarProperty Name="TagName" ColumnName="TagName" />
+                <ScalarProperty Name="TagRequestNum" ColumnName="TagRequestNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTips">
+            <EntityTypeMapping TypeName="HelpMeStudentModel.tblTips">
+              <MappingFragment StoreEntitySet="tblTips">
+                <ScalarProperty Name="TipContent" ColumnName="TipContent" />
+                <ScalarProperty Name="TipId" ColumnName="TipId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tblTagsNotifications" TypeName="HelpMeStudentModel.tblTagsNotifications" StoreEntitySet="tblTagsNotifications">
+            <EndProperty Name="tblTags">
+              <ScalarProperty Name="TagName" ColumnName="TagName" />
+            </EndProperty>
+            <EndProperty Name="tblStudent">
+              <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
